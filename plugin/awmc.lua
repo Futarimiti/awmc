@@ -41,6 +41,11 @@ local play_file = function(name, opts)
     system { aplay_path, path }
     return
   end
+  local ffplay_path = exepath 'ffplay'
+  if ffplay_path then
+    system { ffplay_path, '-nodisp', '-autoexit', path }
+    return
+  end
   local mpv_path = exepath 'mpv'
   if mpv_path then
     -- still slow af
@@ -54,7 +59,7 @@ local play_file = function(name, opts)
     }
     return
   end
-  throw 'I can\'t find an audio player, tried afplay, aplay, mpv'
+  throw 'I can\'t find an audio player, tried afplay, aplay, ffplay, mpv'
 end
 
 local play_break_perfect = function()
